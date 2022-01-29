@@ -1,8 +1,10 @@
 import yaml
 import logging
+import os
 
 def read_config():
-    with open('resources/config.yaml', 'r') as config_data:
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    with open(f'{dir_path}/resources/config.yaml', 'r') as config_data:
         try:
             yaml_data = yaml.safe_load(config_data)
 
@@ -17,7 +19,6 @@ def read_config():
             print('Cannot read or parse config file')
             raise e
 
-
 def parse_config_data(yaml_data):
 
     config = {}
@@ -25,23 +26,17 @@ def parse_config_data(yaml_data):
     def parse_storage():
         opt_data = yaml_data['storage']['options_data']
 
-        options_data = {}
-        options_data['provider'] = opt_data['provider']
-        options_data['host'] = opt_data['host']
-        options_data['port'] = opt_data['port']
-        options_data['user_name'] = opt_data['user_name']
-        options_data['schema_name'] = opt_data['schema_name']
-        config['options_data'] = options_data
+        config['opdata_provider'] = opt_data['provider']
+        config['opdata_host'] = opt_data['host']
+        config['opdata_port'] = opt_data['port']
+        config['opdata_database'] = opt_data['database_name']
 
     def parse_credentials():
         # credentials
-        credentials = {}
-        credentials['type'] = yaml_data['credentials']['provider']
-        config['credentials'] = credentials
+        config['credentials_provider'] = yaml_data['credentials']['provider']
+        if 'secret' in yaml_data['credentials']:
+            config['credentials_secret'] = yaml_data['credentials']['secret']
 
-        # populate password if stored in file
-        if credentials['type'].lower() == 'cred-file' and 'user_passwd' in yaml_data['storage']['options_data']:
-            config['options_data']['user_passwd'] = yaml_data['options_data']['user_passwd']
 
     def parse_logging():
         config['logging_level_str'] = yaml_data['logging']['level']
@@ -68,3 +63,5 @@ def parse_config_data(yaml_data):
     parse_logging()
 
     return config
+
+config_data = read_config()

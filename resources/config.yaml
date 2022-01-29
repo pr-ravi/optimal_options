@@ -6,8 +6,8 @@ storage:
     provider: postgres
     host: localhost
     port: 5432
-    user_name: optimal_user
-    schema_name: options_data
+    database_name: options_data
 
 credentials:
-  provider: cred-file
+  provider: gcloud
+  secret: options-data-secret
