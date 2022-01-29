@@ -1,0 +1,13 @@
+logging:
+  level: info
+
+storage:
+  options_data:
+    provider: postgres
+    host: localhost
+    port: 5432
+    database_name: options_data
+
+credentials:
+  provider: gcloud
+  secret: options-data-secret
