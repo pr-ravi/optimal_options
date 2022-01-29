@@ -20,11 +20,13 @@ def upgrade():
     op.create_table(
         'history',
         sa.Column('instrument', sa.String(15), primary_key= True),
+        sa.Column('exchange', sa.String(15), primary_key=True),
         sa.Column('date', sa.Date, primary_key=True),
         sa.Column('open', sa.Numeric(10)),
         sa.Column('close', sa.Numeric(10)),
-        sa.Column('volume', sa.Integer),
-        sa.Column('trades', sa.Integer)
+        sa.Column('high', sa.Numeric(10)),
+        sa.Column('low', sa.Numeric(10)),
+        sa.Column('volume', sa.Integer)
     )
 
     op.create_table(
