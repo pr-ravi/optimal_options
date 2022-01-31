@@ -18,10 +18,10 @@ depends_on = None
 
 def upgrade():
     op.create_table(
-        'history',
+        'historical_data',
         sa.Column('instrument', sa.String(15), primary_key= True),
         sa.Column('exchange', sa.String(15), primary_key=True),
-        sa.Column('date', sa.Date, primary_key=True),
+        sa.Column('day', sa.Date, primary_key=True),
         sa.Column('open', sa.Numeric(10)),
         sa.Column('close', sa.Numeric(10)),
         sa.Column('high', sa.Numeric(10)),
@@ -31,12 +31,12 @@ def upgrade():
 
     op.create_table(
         'instrument_list',
-        sa.Column('id', sa.Integer, autoincrement=True),
+        sa.Column('id', sa.Integer, autoincrement=True, primary_key= True),
         sa.Column('type', sa.String(10)),
-        sa.Column('values', sa.Text)
+        sa.Column('instrument_name', sa.String(15))
     )
 
 
 def downgrade():
-    op.drop_table('history')
+    op.drop_table('historical_data')
     op.drop_table('instrument_list')

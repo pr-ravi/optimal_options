@@ -4,7 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool, create_engine
 
 from alembic import context
-from storage import sql_env
+from oo.storage import sql_env
 
 import os
 import yaml
