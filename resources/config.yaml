@@ -1,10 +1,14 @@
+app:
+  name: oo
+  version: 0.0.1
+
 logging:
   level: info
 
 storage:
   options_data:
     provider: postgres
-    host: localhost
+    host: host.docker.internal
     port: 5432
     database_name: options_data
 

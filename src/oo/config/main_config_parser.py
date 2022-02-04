@@ -11,12 +11,19 @@ class MainConfigParser():
         self.yaml_data = self.__config_reader__.parse_yaml(text)
 
         try:
+            self.parse_app()
             self.parse_storage()
             self.parse_credentials()
             self.parse_logging()
         except Exception as e:
             print('Cannot parse config.yaml, structure error') 
             raise e 
+
+    def parse_app(self):
+        opt_app = self.yaml_data['app']
+
+        self.config['app_name'] = opt_app['name']
+        self.config['app_version'] = opt_app['version']
 
     def parse_storage(self):
         opt_data = self.yaml_data['storage']['options_data']
