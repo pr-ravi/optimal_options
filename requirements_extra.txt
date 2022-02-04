@@ -1,0 +1,2 @@
+alembic==1.7.6
+docker-make
