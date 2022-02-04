@@ -1,0 +1,29 @@
+base_image:
+  FROM: continuumio/miniconda3
+  build_directory: .
+  build: |
+    COPY requirements.txt /tmp
+    RUN pip install -r /tmp/requirements.txt
+
+app_image:
+  build_directory: .
+  requires:
+    - base_image
+  build: |
+    COPY . /oo
+
+    WORKDIR /oo
+
+    ARG db_user
+    ARG db_pwd
+
+    ENV OO_DB_USER=${db_user}
+    ENV OO_DB_PWD=${db_pwd}
+
+    RUN pip install -e .
+
+nse-update:
+  requires:
+    - app_image
+  build: |
+    ENTRYPOINT exec oo db load-history nse
