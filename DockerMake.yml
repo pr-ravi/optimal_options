@@ -26,4 +26,4 @@ nse-update:
   requires:
     - app_image
   build: |
-    ENTRYPOINT exec oo db load-history nse
+    ENTRYPOINT exec oo db update-history nse

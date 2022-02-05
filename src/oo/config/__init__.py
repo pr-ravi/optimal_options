@@ -1,6 +1,7 @@
 from .config_reader import ConfigReader
 from .main_config_parser import MainConfigParser
 import os 
+import logging
 
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 config_dir = root_dir + os.path.sep + "resources"
@@ -11,3 +12,5 @@ __main_config__parser__ = MainConfigParser(reader)
 __main_config__parser__.parse()
 
 main_config = __main_config__parser__.config
+
+logging.basicConfig(level = logging.INFO)
